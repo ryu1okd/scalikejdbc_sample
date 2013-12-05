@@ -11,6 +11,7 @@ import scalikejdbc.SQLInterpolation._
  */
 case class User(id:Int,name:String,email:String)
 
-object User extends SQLSyntaxSupport[User]{
-
+object User extends SQLSyntaxSupport[User] {
+  override val tableName = "user"
+  def apply(u: ResultName[User])(rs: WrappedResultSet) = new User(rs.int("id"), rs.string("name"),rs.string("email"))
 }
